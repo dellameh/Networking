@@ -15,7 +15,10 @@ try:
     server_socket.bind((host, port))
 except socket.error as e:
     print(str(e))
-print('Socket is listening..')
+print('Socket is listening..','\n',
+      "1:take screenshot",'\n',
+      "2:move mouse",'\n',
+      "3:send me directory list",'\n',)
 server_socket.listen(5)
 
 def multi_threaded_client(conn):
@@ -27,7 +30,7 @@ def multi_threaded_client(conn):
         conn.send(data.encode())  
 
         # -----> get screenshot 
-        if data=="screenshot":
+        if data=="1":
             file_name = conn.recv(1024).decode()
             print(file_name)
             conn.send("Filename received.".encode(FORMAT))
@@ -46,7 +49,7 @@ def multi_threaded_client(conn):
             
 
         # -----> move mouse 
-        if data == f"move your mouse":
+        if data == "2":
              m=conn.recv(1024).decode()
              print(m)
              x= input()
@@ -54,7 +57,7 @@ def multi_threaded_client(conn):
 
 
         # -----> give directory list 
-        if data == "send me directory list":
+        if data == "3":
             list= conn.recv(1024).decode(FORMAT)
             list=eval(list)
             print(list,end='\n')
